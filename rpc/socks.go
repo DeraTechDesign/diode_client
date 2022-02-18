@@ -784,6 +784,7 @@ func (socksServer *Server) handleUDP(packet []byte) {
 
 func (socksServer *Server) forwardUDP(addr net.Addr, deviceName string, port int, mode string, data []byte) {
 	connPort := socksServer.datapool.FindUDPPort(addr)
+	socksServer.logger.Debug("forwardUDP for %v returned %v", addr, connPort)
 	if connPort != nil {
 		err := connPort.SendRemote(data)
 		if err != nil {
