@@ -40,7 +40,6 @@ jobs:
     - if: runner.os != 'Windows'
       run: |
         SUDO=sudo make openssl
-        make ci_test
         make dist
 
     # Add tests on linux
