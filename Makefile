@@ -5,7 +5,7 @@ COMMIT= $(shell git describe --tags --dirty)
 BUILDTIME= $(shell date +"%d %b %Y")
 GOBUILD=go build -ldflags '-s -r ./ -X "main.version=${COMMIT}${VARIANT}" -X "main.buildTime=${BUILDTIME}"' -tags patch_runtime
 ARCHIVE= $(shell ./deployment/zipname.sh)
-GOBIN = $(GOPATH)/bin
+GOBIN = ./build/bin
 GO ?= latest
 GORUN = env GO111MODULE=on go run
 
@@ -98,6 +98,16 @@ dist: diode$(EXE)
 	cp diode$(EXE) dist/
 	$(STRIP) dist/diode$(EXE)
 	$(UPX) --force dist/diode$(EXE)
+
+distAndroid: android
+	mkdir -p dist
+	ls
+	cp $(GOBIN)/geth.aar dist/
+	$(STRIP) dist/geth.aar
+	$(UPX) --force dist/geth.aar
+	cp $(GOBIN)/geth-sources.jar dist/
+	$(STRIP) dist/geth-sources.jar
+	$(UPX) --force dist/geth-sources.jar
 
 .PHONY: archive
 archive: $(ARCHIVE)
