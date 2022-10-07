@@ -6,7 +6,7 @@ jobs:
     name: "Run tests and build artifacts"
     strategy:
       matrix:
-        os: ["windows-latest", "ubuntu-latest", "macOS-latest"]
+        os: ["ubuntu-latest"]
         go: ["1.17.x"]
     runs-on: ${{ matrix.os }}
     steps:
@@ -36,11 +36,11 @@ jobs:
       run: |
         make openssl
         make windows_test
-        make dist
+        make distAndroid
     - if: runner.os != 'Windows'
       run: |
         SUDO=sudo make openssl
-        make dist
+        make distAndroid
 
     # Ziipping the build
     - run: echo "ZIPNAME=`./deployment/zipname.sh`" >> $GITHUB_ENV
