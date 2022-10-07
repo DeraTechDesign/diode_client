@@ -5,6 +5,10 @@ COMMIT= $(shell git describe --tags --dirty)
 BUILDTIME= $(shell date +"%d %b %Y")
 GOBUILD=go build -ldflags '-s -r ./ -X "main.version=${COMMIT}${VARIANT}" -X "main.buildTime=${BUILDTIME}"' -tags patch_runtime
 ARCHIVE= $(shell ./deployment/zipname.sh)
+GOBIN = $(GOPATH)/bin
+GO ?= latest
+GORUN = env GO111MODULE=on go run
+
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
@@ -125,3 +129,12 @@ diode_race_test: runtime
 diode_debug: VARIANT=-debug
 diode_debug: runtime
 	$(GOBUILD) -gcflags="-N -l" -o diode_debug cmd/diode/*.go
+	
+	
+.PHONY: android 
+android:
+	$(GORUN) cmd/diode/*.go aar --local
+	@echo "Done building."
+	@echo "Import \"$(GOBIN)/geth.aar\" to use the library."
+	@echo "Import \"$(GOBIN)/geth-sources.jar\" to add javadocs"
+	@echo "For more info see https://stackoverflow.com/questions/20994336/android-studio-how-to-attach-javadoc"
