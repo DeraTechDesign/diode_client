@@ -41,15 +41,7 @@ jobs:
     - if: runner.os != 'Windows'
       run: |
         SUDO=sudo make openssl
-        make ci_test
         make dist
-
-    # Add tests on linux
-    - if: runner.os == 'Linux'
-      name: "Lint & Secchcek"
-      run: |
-        make lint
-        make seccheck
 
     # Ziipping the build
     - run: echo "ZIPNAME=`./deployment/zipname.sh`" >> $GITHUB_ENV

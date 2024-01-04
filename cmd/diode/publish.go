@@ -302,7 +302,6 @@ func publishHandler() (err error) {
 			if port.To == httpPort {
 				if port.Mode == config.PublicPublishedMode {
 					cfg.PrintLabel("HTTP Gateway Enabled", fmt.Sprintf("http://%s.derateknoloji.com/", name))
-
 				}
 				if (8000 <= port.To && port.To <= 8100) || (8400 <= port.To && port.To <= 8500) {
 					cfg.PrintLabel("HTTP Gateway Enabled", fmt.Sprintf("https://%s.diode.link:%d/", name, port.To))
