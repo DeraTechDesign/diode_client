@@ -611,7 +611,7 @@ func parseHost(host string) (isWS bool, mode string, deviceID string, port int, 
 	} else {
 		if domain == "derateknoloji" || domain == "derateknoloji.com" {
 			deviceID = modeHostPort[2]+domain[0 : len(domain)-len(suffix)-1]
-		}else if domain == "polesancatering" || domain == "polesancatering.com.tr" || domain == "polesancatering.com" {
+		}else if domain == "polesancatering" || domain == "polesancatering.com.tr" || domain == "polesancatering.com" ||domain == "morcilekcateringdavet" || domain == "morcilekcateringdavet.com.tr" || domain == "morcilekcateringdavet.com" {
 			err = fmt.Errorf("domain expired")
 			return
 		} else {
